@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>News List</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+    <script type="text/javascript" src="common/js/utils.js"></script>
+    <script type="text/javascript" src="common/js/dialog.js"></script>
+    <link rel="stylesheet" type="text/css" href="common/css/dialog.css">
+    <link rel="stylesheet" type="text/css" href="common/css/reset.css">
+    <style type="text/css">
+        html,body{
+            max-width: 90%;
+            margin: 0 auto;
+        }
+        .items-wrap{
+            border: 1px solid #000;
+            margin: 20px;
+        }
+        .id,.source,.title,.avatar,.url,.view{
+            border-right: 1px solid #000;
+            display: table-cell;
+            text-align: center;
+            border-bottom: 1px solid #000;
+        }
+        .view{
+            border-right:none
+        }
+        .id{
+            vertical-align: middle;
+            width: 5%;
+        }
+        .source{
+            vertical-align: middle;
+            color: red;
+            font-weight: bold;
+            width: 5%;
+        }
+        .title{
+            vertical-align: middle;
+            width: 30%;
+        }
+        .avatar{
+            vertical-align: middle;
+            width: 20%;
+        }
+        .avatar img{
+            display: block;
+            width: 100%;
+            max-width: 90%;
+            display: inline-block;
+            margin: 4%;
+        }
+        .url{
+            vertical-align: middle;
+            width: 28%;
+        }
+        .view{
+            vertical-align: middle;
+            width: 9%;
+        }
+        .view-btn{
+            display: inline-block;
+            height: 36px;
+            line-height: 36px;
+            padding: 0 8px;
+            border: 1px solid #000;
+            cursor: pointer;
+        }
+        .view-btn:hover{
+            background: #ddd;
+        }
+        .new-item{
+            display: table-row;
+            vertical-align: middle;
+            border-bottom: 1px solid #000;
+        }
+        .new-item:last-child{
+            border-bottom: 0;
+        }
+        .new-dialog .msg{
+            margin: 20px;
+            text-align: left;
+        }
+        .close-icon{
+            display: inline-block;
+            border: 1px solid #999;
+            padding: 5px 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            cursor: pointer;
+        }
+        .close-icon:hover{
+            background: #eee;
+        }
+        .top-inx,.bottom-inx {
+            padding: 0 5px;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+        .inx-item:hover{
+            background: #eee;
+        }
+        .inx-item{
+            display: inline-block;
+            padding: 3px 10px;
+            border: 1px solid #000;
+            border-radius: 3px;
+            margin: 5px;
+        }
+        .active{
+            background: #ef533c !important;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<input type="hidden" id="count"value="<?php echo($count)?>" />
+<nav class="top-inx">
+
+</nav>
+<div class="news-wrap">
+    <ul class="news" id="news">
+
+    </ul>
+</div>
+<nav class="bottom-inx">
+
+</nav>
+<script id="tmpl_dialog" type="text/x-simplet-template">
+    <div class="[# this.type #] modal" id="[# this.id #]">
+        <div class="modal-inner">
+            [# if(this.showTitle){ #]
+            <div class="modal-title">[# this.title#]</div>
+            [#}#]
+            <div class="modal-body">
+                <div class="msg">[# this.msg#]</div>
+                <div class="actions">
+                    [# if(this.showCancelBtn){ #]
+                    <button class="btn btnCancel">[# this.cancelBtn #]</button>
+                    [#}#]
+                    [# if(this.showOkBtn){ #]
+                    <button class="btn btnOk">[# this.okBtn #]</button>
+                    [#}#]
+                    <div class="close-icon" id="close-icon">close</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<script id="tmpl_news" type="text/x-simplet-template">
+    <ul class="items-wrap">
+        [#for(var i=0; i<this.data.length; i++){  var item = this.data[i];#]
+        <li class="new-item">
+            <span class="id">[# item._id #]</span>
+            <span class="source">[# item.source #]</span>
+            <span class="title">[# item.title #]</span>
+            <span class="avatar"><img src="[# item.avatar #]" /></span>
+            <span class="url"><a href="[# item.url #]">[# item.url #]</a></span>
+            <span class="view"><span class="view-btn" data-id="[# item._id #]">View</span></span>
+        </li>
+        [#}#]
+    </ul>
+</script>
+<script>
+    var tmpl = mquery('#tmpl_news').html();
+    var url = "/api/getNewsList?sz=10&pn=1";
+    function reBindViewBtn()
+    {
+        mquery(".view-btn").bind("click",function(){
+            var pn = this.dataset.pn;
+            var url = "index.php?controller=api&action=getnewscontent&pn="+pn;
+            utils.ajax(url, function (data) {
+                var ret = JSON.parse(data);
+                utils.dialog({
+                    msg:ret.content,
+                    type: 'new-dialog',
+                    showCancelBtn: false,
+                    showOkBtn: false,
+                    showTitle: false,
+                    bindfunction: function () {
+                        this.find("#close-icon").bind("click", function () {
+                            mquery(document.body).css('overflow', "auto");
+                            mquery(".modal").remove();
+                        })
+                    }
+                });
+            });
+        },true);
+    }
+    utils.ajax(url, function (data) {
+        var items = JSON.parse(data);
+        var itemsHtml = utils.TemplateEngine(tmpl,items);
+        mquery("#news").append(itemsHtml);
+        reBindViewBtn();
+    });
+    mquery(".inx-item").bind("click",function(){
+        mquery(".inx-item").removeClass("active");
+        var id = this.dataset.pn;
+        this.className = "inx-item active";
+        var url = "index.php?controller=api&action=getnewslist&pn="+id;
+        console.log(url);
+        utils.ajax(url, function (data) {
+            var items = JSON.parse(data);
+            console.log(items);
+            var itemsHtml = utils.TemplateEngine(tmpl,items);
+            mquery("#news").html(itemsHtml);
+            reBindViewBtn();
+        });
+    },true);
+</script>
+</body>
+
+</html>

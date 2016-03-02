@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Gen History List</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+    <script type="text/javascript" src="../common/js/utils.js"></script>
+    <script type="text/javascript" src="../common/js/dialog.js"></script>
+    <link rel="stylesheet" type="text/css" href="../common/css/dialog.css">
+    <link rel="stylesheet" type="text/css" href="../common/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../common/css/gen.css">
+</head>
+<body>
+<input type="hidden" id="source" name="source" value = "<%= source %>" />
+<nav class="top-inx">
+        <% for(var i = 1;i<count+1;i++){ %>
+            <span class="inx-item" data-pn="<%= i-1 %>"><%= i %></span>
+        <% }%>
+</nav>
+<div class="news-wrap">
+    <ul class="news" id="news">
+
+    </ul>
+</div>
+<nav class="bottom-inx">
+        <% for(var i = 1;i<count+1;i++){ %>
+            <span class="inx-item" data-pn="<%= i-1 %>"><%= i %></span>
+        <% }%>
+</nav>
+<!--<script id="tmpl_dialog" type="text/x-simplet-template">-->
+    <!--<div class="[# this.type #] modal" id="[# this.id #]">-->
+        <!--<div class="modal-inner">-->
+            <!--[# if(this.showTitle){ #]-->
+            <!--<div class="modal-title">[# this.title#]</div>-->
+            <!--[#}#]-->
+            <!--<div class="modal-body">-->
+                <!--<div class="msg">[# this.msg#]</div>-->
+                <!--<div class="actions">-->
+                    <!--[# if(this.showCancelBtn){ #]-->
+                    <!--<button class="btn btnCancel">[# this.cancelBtn #]</button>-->
+                    <!--[#}#]-->
+                    <!--[# if(this.showOkBtn){ #]-->
+                    <!--<button class="btn btnOk">[# this.okBtn #]</button>-->
+                    <!--[#}#]-->
+                    <!--<div class="close-icon" id="close-icon">close</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</script>-->
+<script id="tmpl_news" type="text/x-simplet-template">
+    <ul class="items-wrap">
+        [#for(var i=0; i<this.data.length; i++){  var item = this.data[i];#]
+        <li class="new-item">
+            <span class="id">[# item.id #]</span>
+            <span class="source">[# item.source #]</span>
+            <span class="title">[# item.rettitle #]</span>
+            <span class="url"><a href="[# item.url #]">[# item.url #]</a></span>
+            <span class="images">
+                [#for(var j=0; j<item.retimages.length; i++){  var url = item.retimages[i];#]
+                        <span class="image"><img src="[# url #]" /></span>
+                [#}#]
+            </span>
+            <span class="content">
+                [# item.rettitle #]
+            </span>
+        </li>
+        [#}#]
+    </ul>
+</script>
+<script>
+    var tmpl = mquery('#tmpl_news').html();
+    var url = "/api/getGenHistoryList?sz=20&pn=0";
+    var source = mquery("#source").val();
+    if(source != "undefined")
+    {
+        url = url + "&source=" + source;
+    }
+    function reBindViewBtn()
+    {
+
+    }
+    utils.ajax(url, function (data) {
+        var items = JSON.parse(data);
+        var itemsHtml = utils.TemplateEngine(tmpl,items);
+        mquery("#news").append(itemsHtml);
+        reBindViewBtn();
+    });
+    mquery(".inx-item").bind("click",function(){
+        mquery(".inx-item").removeClass("active");
+        var id = this.dataset.pn;
+        this.className = "inx-item active";
+        var url = "/api/getGenHistoryList?sz=20&pn="+id;
+        if(source != "undefined")
+        {
+            url = url + "&source=" + source;
+        }
+        console.log(url);
+        utils.ajax(url, function (data) {
+            var items = JSON.parse(data);
+            console.log(items);
+            var itemsHtml = utils.TemplateEngine(tmpl,items);
+            mquery("#news").html(itemsHtml);
+            reBindViewBtn();
+        });
+    },true);
+</script>
+</body>
+
+</html>

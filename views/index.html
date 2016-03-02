@@ -1,0 +1,104 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Instamob</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+    <style type="text/css">
+        body {max-width: 400px;margin: 0 auto;text-align: center}
+        .info {margin: 30px;max-width: 80%;color: #aaa}
+        .logo-wrap {display: inline-block;margin: 50px 0 30px 0}
+        @keyframes flip {
+            0% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 1;
+            }
+            70% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        @-webkit-keyframes flip {
+            0% {
+                top: 0px;
+                opacity: 0.5;
+            }
+            5% {
+                top: 10px;
+                opacity: 0.5;
+            }
+            10% {
+                top: 0px;
+                opacity: 0.5;
+            }
+            15% {
+                top: 10px;
+                opacity: 0.5;
+            }
+            20% {
+                top: 0px;
+                opacity: 0.5;
+            }
+            25% {
+                top: 0px;
+                opacity: 0.5;
+            }
+            30% {
+                top: 10px;
+                opacity: 0.5;
+            }
+            35% {
+                top: 0px;
+                opacity: 0.5;
+            }
+            40% {
+                top: 10px;
+                opacity: 0.5;
+            }
+            45% {
+                top: 0px;
+                opacity: 0.5;
+            }
+
+            50% {
+                top: 0px;
+                opacity: 1;
+            }
+            70% {
+                top: 0px;
+                opacity: 1;
+            }
+            100% {
+                top: 0px;
+                opacity: 1;
+            }
+        }
+        .logo{
+            position: relative;
+            -webkit-animation: flip 2s linear 0 100 alternate;
+            animation: flip 2s linear 0 100 alternate;
+        }
+    </style>
+</head>
+<body>
+<div class="logo-wrap">
+    <div class="logo">
+        <img src="images/logo.png" class="logo-img" />
+    </div>
+</div>
+<div class="info">
+    Instamob is currently only available on Android. We're working hard on iOS version right now, please be patient for the release!
+</div>
+<script>
+
+</script>
+</body>
+
+</html>

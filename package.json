@@ -1,0 +1,32 @@
+{
+  "name": "new-crawler",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "express": "~4.9.0",
+    "bson":"*",
+    "ejs":"*",
+    "jquery":"*",
+    "jsdom":"*",
+    "mongoose":"*",
+    "mongoose-id-autoinc":"*",
+    "pm2":"*",
+    "request":"*",
+    "request-promise":"*",
+    "cheerio":"*",
+    "body-parser":"*",
+    "connect-timeout":"*",
+    "domain":"*",
+    "gm":"*",
+    "iconv-lite":"*",
+    "images":"*",
+    "image-size":"*",
+    "multer":"*",
+    "phantom":"*",
+    "request":"*",
+    "request-promise":"*"
+  }
+}
