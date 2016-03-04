@@ -52,9 +52,15 @@ var utils = (function () {
         utilsObj.mode = "local";
         console.log("local");
     } else if (fs.existsSync(path + utilsObj.fileBreaker + ".dev")) {
-        utilsObj.newsLocation = "/var/www/crawl.instamob.im/crawl-n/public/news/";
-        utilsObj.genImageLocation = "/var/www/crawl.instamob.im/crawl-n/public/genimages/";
-        utilsObj.genImageBGLocation = "/var/www/crawl.instamob.im/crawl-n/public/genimages/bg.jpg";
+//      utilsObj.newsLocation = "/var/www/crawl.instamob.im/crawl-n/public/news/";
+//      utilsObj.genImageLocation = "/var/www/crawl.instamob.im/crawl-n/public/genimages/";
+//      utilsObj.genImageBGLocation = "/var/www/crawl.instamob.im/crawl-n/public/genimages/bg.jpg";
+//      utilsObj.mode = "dev";
+//      utilsObj.selfUrl = "http://xc.128dev.mozat.com/";
+//      console.log("dev");
+        utilsObj.newsLocation = "/home/ubuntu/node-work/crawl/public/news/";
+        utilsObj.genImageLocation = "/home/ubuntu/node-work/crawl/public/genimages/";
+        utilsObj.genImageBGLocation = "/home/ubuntu/node-work/crawl/public/res/bg.jpg";
         utilsObj.mode = "dev";
         utilsObj.selfUrl = "http://xc.128dev.mozat.com/";
         console.log("dev");
