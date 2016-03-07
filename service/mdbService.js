@@ -12,7 +12,7 @@ var mongdb;
 if (utilsService.mode == "local") {
     mongdb = mongoose.connect('mongodb://localhost:27017/instamobn');
 } else if (utilsService.mode == "dev") {
-    mongdb = mongoose.connect('mongodb://192.168.128.125:27017/instamobn?replicaset=instamobn');
+    mongdb = mongoose.connect('mongodb://127.0.0.1:27017/instamobn?replicaset=instamobn');
 } else {
     mongdb = mongoose.connect('mongodb://10.160.240.189:27017/instamobn?replicaset=instamobn');
 }

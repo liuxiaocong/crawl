@@ -22,7 +22,7 @@ router.get('/', function (req, res) {
 });
 router.get('/crawlNews', function (req, res) {
     mutilpleRequest++;
-    res.sourceAccount = 5;
+    res.sourceAccount = 2;
     res.finishCrawl = 0;
     res.detect = function (data) {
         if (res.sourceAccount == res.finishCrawl) {
@@ -35,19 +35,20 @@ router.get('/crawlNews', function (req, res) {
     //end fake
     if (mutilpleRequest % 2 == 0) {
         console.log("getChannelE getStomp getAsiaOne getTrs:" + mutilpleRequest);
-        res.sourceAccount = 5;
-        crawlService.getChannelE(res, sourceObj);
-        crawlService.getStomp(res, sourceObj);
+        res.sourceAccount = 2;
+//      crawlService.getChannelE(res, sourceObj);
+//      crawlService.getStomp(res, sourceObj);
         crawlService.getAsiaOne(res, sourceObj);
-        crawlService.getTrs(res, sourceObj);
-        crawlService.getZhihu(res, sourceObj);
+//      crawlService.getTrs(res, sourceObj);
+	    crawlService.getZhihu(res, sourceObj);
     } else {
         console.log("getLocalNews getNanYangView getWangyi getKr:" + mutilpleRequest);
+        res.sourceAccount = 2;
         crawlService.getLocalNews(res, sourceObj);
         crawlService.getNanYangView(res, sourceObj);
-        crawlService.getWangyi(res, sourceObj);
-        crawlService.getKr(res, sourceObj);
-        crawlService.getHuxiu(res, sourceObj);
+//      crawlService.getWangyi(res, sourceObj);
+//      crawlService.getKr(res, sourceObj);
+//      crawlService.getHuxiu(res, sourceObj);
     }
 });
 module.exports = router;

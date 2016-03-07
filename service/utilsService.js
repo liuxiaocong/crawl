@@ -48,7 +48,7 @@ var utils = (function () {
     }
     console.log(env);
     if (fs.existsSync(path + utilsObj.fileBreaker + ".local")) {
-        utilsObj.newsLocation = "D:\\xampp\\htdocs\\crawl.instamob.im\\crawl-n\\public\\news\\";
+        utilsObj.newsLocation = "D:\\node-work\\\crawl\\public\\news\\";
         utilsObj.mode = "local";
         console.log("local");
     } else if (fs.existsSync(path + utilsObj.fileBreaker + ".dev")) {
