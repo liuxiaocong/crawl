@@ -1,0 +1,110 @@
+html,body{
+    max-width: 90%;
+    margin: 0 auto;
+}
+.items-wrap{
+    border: 1px solid #000;
+    margin: 20px;
+}
+.id,.source,.title,.avatar,.url,.view{
+    border-right: 1px solid #000;
+    display: table-cell;
+    text-align: center;
+    border-bottom: 1px solid #000;
+}
+.view{
+    border-right:none
+}
+.id{
+    vertical-align: middle;
+    width: 5%;
+}
+.source{
+    vertical-align: middle;
+    color: red;
+    font-weight: bold;
+    width: 5%;
+}
+.title{
+    vertical-align: middle;
+    width: 30%;
+}
+.avatar{
+    vertical-align: middle;
+    width: 20%;
+}
+.avatar img{
+    display: block;
+    width: 100%;
+    max-width: 90%;
+    display: inline-block;
+    margin: 4%;
+}
+.url{
+    vertical-align: middle;
+    width: 28%;
+}
+.view{
+    vertical-align: middle;
+    width: 9%;
+}
+.view-btn{
+    display: inline-block;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 8px;
+    border: 1px solid #000;
+    cursor: pointer;
+}
+.view-btn:hover{
+    background: #ddd;
+}
+.new-item{
+    display: table-row;
+    vertical-align: middle;
+    border-bottom: 1px solid #000;
+}
+.new-item:last-child{
+    border-bottom: 0;
+}
+.new-dialog .msg{
+    margin: 20px;
+    text-align: left;
+}
+.close-icon{
+    display: inline-block;
+    border: 1px solid #999;
+    padding: 5px 20px;
+    border-radius: 8px;
+    margin: 15px 0;
+    cursor: pointer;
+}
+.close-icon:hover{
+    background: #eee;
+}
+.top-inx,.bottom-inx {
+    padding: 0 5px;
+    margin: 10px 0;
+    cursor: pointer;
+}
+.inx-item:hover{
+    background: #eee;
+}
+.inx-item{
+    display: inline-block;
+    padding: 3px 10px;
+    border: 1px solid #000;
+    border-radius: 3px;
+    margin: 5px;
+}
+.active{
+    background: #ef533c !important;
+    color: #fff;
+}
+
+@media screen and (max-width: 400px) {
+    html, body {max-width: 100%}
+    .id,.source,.url{display: none}
+    .items-wrap {margin: 5px}
+    .modal .modal-inner {width: 96%}
+}

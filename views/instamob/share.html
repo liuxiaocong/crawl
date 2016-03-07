@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>gen news from url</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+    <script type="text/javascript" src="../js/utils.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/reset.css">
+    <style type="text/css">
+        body {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .wrap {
+            max-width: 900px;
+        }
+
+        .i-wrap img {
+            display: block;
+            width: 100%;
+        }
+
+        .title, .content {
+            text-align: left;
+        }
+
+        .title {
+            padding: 0 10px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .content {
+            padding: 0 10px;
+            font: 14px/18px Calibri, Microsoft YaHei, verdana, Arial, Helvetica, sans-serif !important;
+        }
+
+        .content p {
+            margin: 10px 0 !important;
+        }
+    </style>
+</head>
+<body>
+<input type="hidden" id="nid" name="nid"/>
+<input type="hidden" id="tid" name="tid"/>
+
+<div class="wrap">
+    <div class="i-wrap">
+        <img src="#" class="image" id="image"/>
+    </div>
+    <div class="s-wrap">
+        <div class="source" id="source">
+
+        </div>
+    </div>
+    <div class="t-wrap">
+        <div class="title" id="title">
+
+        </div>
+    </div>
+    <div class="c-wrap">
+        <div class="content" id="content">
+
+        </div>
+    </div>
+</div>
+<script>
+    var tid = 1;
+    var nid = 100524;
+    var tmp = document.location.href.substr(document.location.href.indexOf("tid=") + 4);
+    if (tmp.indexOf("&") > 0) {
+        tid = tmp.substr(0, tmp.indexOf("&"));
+    } else {
+        tid = tmp;
+    }
+    var tmpN = document.location.href.substr(document.location.href.indexOf("nid=") + 4);
+    if (tmpN.indexOf("&") > 0) {
+        nid = tmpN.substr(0, tmpN.indexOf("&"));
+    } else {
+        nid = tmpN;
+    }
+    var url = "/api/apiChange";
+    function timestamp2Sequence(ts) {
+        var sequence = ts - 1288834974657;
+        return (sequence << 22);
+    }
+
+    var newsDtObj = {};
+    newsDtObj.getDetail = function (tid, nid, cb) {
+        var postD = {};
+        var items = {};
+        postD.url = "/call";
+        postD.data = {};
+        postD.data.CMD = 2;
+        postD.data.userId = 99999;
+        postD.data.service = "INSTMOB_NEWS";
+        postD.data.request = {};
+        postD.data.request.req_get_news_detail = {};
+        postD.data.request.req_get_news_detail.topic_id = parseInt(tid);
+        postD.data.request.req_get_news_detail.news_id = parseInt(nid);
+
+        console.log(url);
+        utils.ajax(url, function (data) {
+            var items = JSON.parse(data);
+            cb(items);
+        }, "POST", JSON.stringify(postD), "application/json");
+    }
+
+    newsDtObj.getComment = function (tid, nid, count, cb) {
+        var postM = {};
+        postM.url = "/call";
+        postM.data = {};
+        postM.data.CMD = 2;
+        postM.data.userId = 99999;
+        postM.data.service = "GROUP_MSG";
+        postM.data.request = {};
+        postM.data.request.req_get_msg = {};
+        postM.data.request.req_get_msg.target_id = parseInt(nid);
+        postM.data.request.req_get_msg.count = count;
+        postM.data.request.req_get_msg.is_reversed = false;
+        console.log(timestamp2Sequence((new Date()).valueOf()));
+        postM.data.request.seq = -1;
+
+        utils.ajax(url, function (data) {
+            var items = JSON.parse(data);
+            cb(items);
+        }, "POST", JSON.stringify(postM), "application/json");
+    }
+
+    newsDtObj.getComment(tid, nid, 10, function (items) {
+        console.log("comment")
+        console.log(items);
+    })
+
+
+    newsDtObj.getDetail(tid, nid, function (items) {
+        console.log("detail")
+        console.log(items);
+        if (items.resp_get_news_detail.news_info.news_id) {
+            mquery("#nid").val(items.resp_get_news_detail.news_info.news_id);
+            mquery("#tid").val(items.resp_get_news_detail.news_info.topic_id);
+            mquery("#title").get(0).innerHTML = items.resp_get_news_detail.news_info.title;
+            mquery("#content").get(0).innerHTML = items.resp_get_news_detail.news_info.content;
+            mquery("#image").get(0).src = items.resp_get_news_detail.news_info.images[0];
+        }
+    })
+</script>
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+
+/* line 2, ../../src/sass/_dialog.sass */
+.modal {
+    position: fixed;
+    display: none;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    z-index: 100;
+    height: 100%;
+    overflow-y : auto;
+}
+/* line 13, ../../src/sass/_dialog.sass */
+.modal:before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+    text-align: center;
+    margin-right: -0.25em;
+    z-index: 100;
+}
+/* line 20, ../../src/sass/_dialog.sass */
+.modal .modal-inner {
+    width: 80%;
+    display: inline-block;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+    background-color: #fff;
+    font-size: 1.2em;
+    border-radius: 5px;
+    background-clip: padding-box;
+    /*box-shadow: 0 0 10px #e39c5d;*/
+}
+
+/* line 26, ../../src/sass/_dialog.sass */
+.modal .modal-inner .modal-header {
+    padding: 5px 30px;
+    text-align: center;
+    margin: 10px 0 0 0;
+    line-height: 1.2em;
+}
+/* line 30, ../../src/sass/_dialog.sass */
+.modal .modal-inner .modal-header .title {
+    font-weight: bold;
+    font-size: 1.5em;
+    color: #000;
+}
+
+.modal-title {font-size: 1.2em;margin: 8px 10px 0 10px;font-weight: bold}
+
+/* line 33, ../../src/sass/_dialog.sass */
+.modal .modal-inner .modal-body {
+    text-align: center;
+    width: auto;
+    color: #555555;
+}
+/* line 37, ../../src/sass/_dialog.sass */
+.modal .modal-inner .modal-body .actions .btn {
+    border: 1px solid #dddddd;
+}
+
+
+.ar .android .modal-title,.ar .android .r-now-c  {text-align: right;}
+.android .modal-inner {border-radius: 0;padding:0 5px;border: 0}
+.android .modal-title {text-align: left;padding-left:10px ; padding-bottom: 12px;border-bottom: 2px solid #2db3e6;margin: 8px 0;color: #2db3e6}
+.android .modal-inner {padding: 0}
+.android .r-now-c {text-align: left;}
+.android .r-now-r-btn-inner, .android .r-now-l-btn-inner, .android .r-now-s-btn-inner {color: #000;font-weight: bold}

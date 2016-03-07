@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Instamob</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+    <script type="text/javascript" src="../js/utils.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/reset.css">
+    <style type="text/css">
+        body {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .wrap {
+            max-width: 900px;
+        }
+
+        .i-wrap img {
+            display: block;
+            width: 100%;
+        }
+
+        .title, .content {
+            text-align: left;
+        }
+
+        .title {
+            padding: 0 10px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .image {
+            background: url("/images/loading.gif") center center no-repeat transparent;
+        }
+
+        .content {
+            padding: 0 10px;
+            font: 14px/18px Calibri, Microsoft YaHei, verdana, Arial, Helvetica, sans-serif !important;
+        }
+
+        .content p {
+            margin: 10px 0 !important;
+        }
+    </style>
+</head>
+<body>
+<input type="hidden" id="nid" name="nid"/>
+<input type="hidden" id="tid" name="tid"/>
+
+<div class="wrap">
+    <div class="i-wrap">
+        <img src="/images/59holder.png" class="image" id="image"/>
+    </div>
+    <div class="s-wrap">
+        <div class="source" id="source">
+
+        </div>
+    </div>
+    <div class="t-wrap">
+        <div class="title" id="title">
+
+        </div>
+    </div>
+    <div class="c-wrap">
+        <div class="content" id="content">
+
+        </div>
+    </div>
+</div>
+<script>
+    var newQuery = {};
+    newQuery.getNewsList = function (tid,start, count, lang, cb) {
+        var postD = {};
+        var items = {};
+        postD.url = "/call";
+        postD.data = {};
+        postD.data.CMD = 1;
+        postD.data.userId = 99999;
+        postD.data.service = "INSTMOB_NEWS";
+        postD.data.request = {};
+        postD.data.request.req_get_news_list = {};
+        postD.data.request.req_get_news_list.topic_id = tid;
+        postD.data.request.req_get_news_list.start = start;
+        postD.data.request.req_get_news_list.count = count;
+        postD.data.request.req_get_news_list.is_reversed = false;
+        postD.data.request.req_get_news_list.lang = lang;
+        url = "/api/apiChange";
+        console.log(url);
+        utils.ajax(url, function (data) {
+            console.log(data);
+            items = JSON.parse(data);
+            cb(items);
+        }, "POST", JSON.stringify(postD), "application/json");
+    }
+    newQuery.getNewsList(1,0,10,"en",function(item)
+    {
+        console.log(item);
+    })
+
+</script>
+</body>
+
+</html>

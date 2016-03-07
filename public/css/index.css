@@ -1,0 +1,120 @@
+* {
+    margin: 0;
+    padding: 0
+}
+
+html, body {
+    height: 100%;
+    /*overflow-x: hidden;*/
+}
+
+body {
+    text-align: center;
+}
+.wrap{
+    height: 100%;
+    background: url("/images/banner_background_bottom.png") center center repeat-y;
+}
+.detail{
+    background: url("/images/banner_background_bottom.png") center center repeat-y #fff;
+}
+.ft-dl-wrap {
+    z-index: 99;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 20px;
+    /*background: rgba(255, 255, 255, 0.6);*/
+    height: 50px;
+    text-align: center;
+    display: none;
+}
+.ft-dl-btn{
+    cursor: pointer;
+    height: 44px;
+    line-height: 44px;
+    margin: 2px auto;
+    display: inline-block;
+    padding: 0 30px;
+    text-align: center;
+    background: #ffc300;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.4em;
+    /*text-transform: uppercase;*/
+    border: 1px solid #000;
+    box-shadow: 0 0 10px #333;
+}
+.ft-dl-btn:hover{color: #000;background: yellow}
+.mob {
+    z-index: 99;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    opacity: 0.9;
+    display: none;
+}
+
+.mob .arrow {
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0.9;
+}
+
+
+.header {height: 580px;background-color: #ffc400;}
+.menu {height: 60px;line-height: 60px;border-bottom: 1px solid #f7b500;background: #ffc400;}
+.menu-inner,.info-inner,.detail-inner {max-width: 1000px;margin: 0 auto;text-align: left;}
+/*//ffd202*/
+.info-inner {text-align: center;padding: 1px 0;height: 518px;background:#ffc400;background:-webkit-gradient(radial, center center, 30, center center, 600, from(#fbd527), to(#f8be00));}
+.mi-img img {display: block}
+.mi-img {display: inline-block;vertical-align: middle;margin-left: 40px}
+.mi-menu {display: inline-block;vertical-align: middle;float: right;margin-right: 40px}
+.mi-menu div {display: inline-block;font-weight: bold;font-size: 18px}
+.mi-menu div a {color: #000;text-decoration: none}
+.mi-menu div a:hover {color: #000;}
+.mi-menu div a:active {color: #000;}
+.mi-menu div a:visited {color: #000}
+.mi-menu div.sl-w {margin: 0 20px;font-weight: 100}
+
+
+.info-body {background: url("/images/banner_background.png") center top no-repeat;height: 520px;}
+.info-inner {margin-top: -520px;}
+.logo-wrap img {border-radius: 20px;width: 100px;margin:100px auto 0 auto;height: 100px;display: block;}
+.des-w {font-size: 2em;margin-top: 5px;font-weight: lighter}
+.dl-link {display: inline-block;height: 60px;width: 180px;background: url("/images/bt_googleplayl.png") center top no-repeat;margin-top: -60px}
+.dl-link:hover {background-position:0 -60px}
+.dl-text {display: inline-block;height: 60px;width: 180px;font-size: 1.4em;z-index: -1;line-height: 60px;}
+.dl-wrap,.name-w {margin-top: 25px}
+
+.fun-inner {margin: 0 20px}
+.func-item {display: inline-block;width: 33%;text-align:center;vertical-align: top}
+.item-img-w a{width: 76px;height: 76px;display: inline-block}
+.item-img-a {background: url("/images/ic_anonymity.png") center top no-repeat;}
+.item-img-a:hover {background-position: center -76px}
+.item-img-b {background: url("/images/ic_discussion.png") center top no-repeat;}
+.item-img-b:hover {background-position: center -76px}
+.item-img-c {background: url("/images/ic_news.png") center top no-repeat;}
+.item-img-c:hover {background-position: center -76px}
+.func-list {margin:0 15px;padding-top: 30px;padding-bottom:80px;border-bottom: 1px solid #eee}
+.item-title {font-size: 1.6em;margin: 10px 0}
+.footer {padding: 40px 0 60px 0;}
+.footer p {height: 30px;line-height: 30px;text-align: center}
+
+@media screen and (max-width: 680px) {
+    .func-list {text-align: center}
+    .func-item {width: 80%;margin: 20px auto}
+    .info-inner {background:-webkit-gradient(radial, center center, 30, center center, 320, from(#fbd527), to(#f8be00));}
+}
+@media screen and (max-width: 550px) {
+    .mi-img {margin-left: 10px}
+    .mi-menu {margin-right: 10px}
+    .mi-menu div {font-size: 1.2em}
+    .mi-menu div.sl-w {margin: 0 5px}
+    .info-inner {background:-webkit-gradient(radial, center center, 30, center center, 200, from(#fbd527), to(#f8be00));}
+    .mi-img img {width: 110px}
+}

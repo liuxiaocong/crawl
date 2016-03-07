@@ -13,7 +13,7 @@ var genNewsService = require("../service/genNewsService");
 
 var toolsService = require("../service/toolsService");
 
-router.get('/getNewsList', function (req, res) {
+router.all('/getNewsList', function (req, res) {
     console.log("list");
     console.log(req.query);
     var query = req.query;
@@ -41,13 +41,13 @@ router.get('/getNewsList', function (req, res) {
                     doc2.comment = utilsService.getComments(doc.id);
                 }
                 if (doc2.avatar.toLowerCase().indexOf(".png") > 0) {
-                    doc2.avatar = utilsService.selfUrl + "news" + utilsService.fileBreaker + doc2.id + utilsService.fileBreaker + "thumbnail.png";
+                    doc2.avatar = utilsService.selfUrl + "news" + "/" + doc2.id + "/" + "thumbnail.png";
                 } else if (doc2.avatar.toLowerCase().indexOf(".jpeg") > 0) {
-                    doc2.avatar = utilsService.selfUrl + "news" + utilsService.fileBreaker + doc2.id + utilsService.fileBreaker + "thumbnail.jpeg";
+                    doc2.avatar = utilsService.selfUrl + "news" + "/" + doc2.id + "/" + "thumbnail.jpeg";
                 } else if (doc2.avatar.toLowerCase().indexOf(".gif") > 0) {
-                    doc2.avatar = utilsService.selfUrl + "news" + utilsService.fileBreaker + doc2.id + utilsService.fileBreaker + "thumbnail.gif";
+                    doc2.avatar = utilsService.selfUrl + "news" + "/" + doc2.id + "/" + "thumbnail.gif";
                 } else {
-                    doc2.avatar = utilsService.selfUrl + "news" + utilsService.fileBreaker + doc2.id + utilsService.fileBreaker + "thumbnail.jpg";
+                    doc2.avatar = utilsService.selfUrl + "news" + "/" + doc2.id + "/" + "thumbnail.jpg";
                 }
 //                console.log(doc2);
                 newDocs.push(doc2);

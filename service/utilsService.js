@@ -40,7 +40,7 @@ var utils = (function () {
     utilsObj.genImageLocation = "D:\\xampp\\htdocs\\crawl.instamob.im\\crawl-n\\public\\genimages\\";
     utilsObj.genImageBGLocation = "D:\\xampp\\htdocs\\crawl.instamob.im\\crawl-n\\public\\genimages\\bg.jpg";
     utilsObj.mode = "local";
-    utilsObj.selfUrl = "http://172.28.2.70:9025/";
+    utilsObj.selfUrl = "/";
     utilsObj.serverApi = "http://192.168.128.100:56382";
     if (!(path.indexOf("\\") > 0)) {
         env = "unix";
@@ -417,6 +417,27 @@ var utils = (function () {
         return ret;
     }
 
+	utilsObj.getTimeTextFrom = function(time){
+		console.log("getTimeTextFrom");
+		console.log(time);
+		time = parseInt(time)/1000;
+		var text = "2 hour ago";
+        if (time > 86400000) {
+            var d = parseInt(parseInt(time) / 86400000);
+            text = d + " day ago";
+        } else if (time > 3600000) {
+            var h = parseInt(parseInt(time) / 3600000);
+            text = h + " hour ago";
+        } else if (time > 60000) {
+            var m = parseInt(parseInt(time) / 60000);
+            text = m + " minute ago";
+        } else {
+            text = "1 minute ago";
+        }
+        console.log(text);
+        return text;
+	}
+	
     utilsObj.postNewsToServer = function(tid,title,summary,images,publisher,copright,visibility,content,released_ts,ttl,lang,push_flag,uid)
     {
         var data = {};

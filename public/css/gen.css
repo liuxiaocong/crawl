@@ -1,0 +1,83 @@
+html,body{
+    max-width: 90%;
+    margin: 0 auto;
+}
+.items-wrap{
+    border: 1px solid #000;
+    margin: 20px;
+}
+
+.view{
+    vertical-align: middle;
+    width: 9%;
+}
+.view-btn{
+    display: inline-block;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 8px;
+    border: 1px solid #000;
+    cursor: pointer;
+}
+.view-btn:hover{
+    background: #ddd;
+}
+.new-item{
+    display: table;
+    border-bottom: 1px solid #000;
+}
+.source,.id ,.title,.url,.content,.images,.cost,.pagecost {display: table-cell;text-align: center;word-break: break-all;padding: 0 5px;border-right: 1px solid #000;vertical-align: middle;padding: 5px}
+.cost,.pagecost {width: 50px}
+.id {width: 50px;}
+.source {width: 150px;}
+.title {width: 150px;}
+.content {width: 300px;max-height: 200px;}
+.url {width: 100px}
+.images-inner {display: flex;}
+.image {vertical-align: middle}
+.new-item:last-child{
+    border-bottom: 0;
+}
+.image img {width: 100%;max-width: 90%;border: 5px solid #ccc;border-radius: 5px}
+
+.new-dialog .msg{
+    margin: 20px;
+    text-align: left;
+}
+.close-icon{
+    display: inline-block;
+    border: 1px solid #999;
+    padding: 5px 20px;
+    border-radius: 8px;
+    margin: 15px 0;
+    cursor: pointer;
+}
+.close-icon:hover{
+    background: #eee;
+}
+.top-inx,.bottom-inx {
+    padding: 0 5px;
+    margin: 10px 0;
+    cursor: pointer;
+}
+.inx-item:hover{
+    background: #eee;
+}
+.inx-item{
+    display: inline-block;
+    padding: 3px 10px;
+    border: 1px solid #000;
+    border-radius: 3px;
+    margin: 5px;
+}
+.active{
+    background: #ef533c !important;
+    color: #fff;
+}
+
+@media screen and (max-width: 400px) {
+    html, body {max-width: 100%}
+    .id,.source,.url{display: none}
+    .items-wrap {margin: 5px}
+    .modal .modal-inner {width: 96%}
+}

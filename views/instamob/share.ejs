@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Instamob</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2, user-scalable=1"/>
+    <meta property="og:image" content="<%= image %>" id="og-image"/>
+    <meta property="og:title" content="<%= title %>" id="og-title"/>
+    <link rel="stylesheet" type="text/css" href="/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="/css/share.css">
+</head>
+<body>
+<div class="ft-dl-wrap" id="ft-dl-wrap">
+    <div class="ft-dl-btn" id="ft-dl-btn">
+        Install App
+    </div>
+</div>
+<div class="mob" id="mob">
+    <div class="i-wrap">
+        <img src="/images/arrow.png" class="arrow"/>
+    </div>
+</div>
+<input type="hidden" id="nid" name="nid"/>
+<input type="hidden" id="tid" name="tid"/>
+<div class="mob-loading" id="mob-loading"></div>
+<div class="menu">
+    <div class="menu-inner">
+        <div class="mi-img">
+            <a href="/"><img src="/images/logo_menu.png"/></a>
+        </div>
+        <div class="mi-menu">
+            <div class="ed-w" id="ed-w"><a href="/news?tid=1">Editors'</a></div>
+            <div class="sl-w">|</div>
+            <div class="mb-w" id="mb-w"><a href="/news?tid=0">Mobbers'</a></div>
+        </div>
+    </div>
+</div>
+<div class="wrap">
+    <div class="nav">
+        <!--<div class="nav-first">-->
+        <span class="nav-start">
+            <span class="nav-start-inner"></span>
+        </span>
+        <span class="nav-text"><a href="/">Index</a> > <span class="news-type" id="news-type"></span></span>
+        <!--</div>-->
+        <!--<div>-->
+        <span class="nav-title" id="nav-title"><%= title %></span>
+        <!--</div>-->
+    </div>
+    <div class="news-wrap">
+        <ul id="news-list" class="news-list">
+
+        </ul>
+    </div>
+</div>
+<div class="wrap">
+    <div class="wrap-inner">
+        <div class="i-wrap"><img src="/news/<%= nid %>/thumbnail.jpg" class="image" id="image"/></div>
+        <div class="t-wrap">
+            <div class="title" id="title"><%= title %></div>
+            <div class="time" id="time"><%= time %></div>
+        </div>
+        <div class="c-wrap">
+            <div class="content" id="content">
+                <%- content %>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrap">
+    <div class="comment-wrap">
+    <div class="cm-percentage" id="cm-percentage">Mobber are talking (<span id="d-c" class="d-c">0</span>/<span id="a-c" class="a-c">0</span>)</div>
+    <ul class="comment-list" id="comment-list">
+
+    </ul>
+    </div>
+</div>
+<div class="footer">
+    <p>Instamob @2015 All Right Reserved <br/><a href="https://mixpanel.com/f/partner"><img src="//cdn.mxpnl.com/site_media/images/partner/badge_light.png" alt="Mobile Analytics" /></a>
+    </p>
+</div>
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-58547478-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/emoji.js"></script>
+<script id="tmpl_comments" type="text/x-simplet-template">
+    [#for(var i=0; i <this.length; i++){ var item = this[i];#]
+    <li class="comment-item">
+        <div class="comment-sender"><div class="c-sender-name">[# item.sender.name #]</div></div>
+        <div class="comment-content-wrap"><div class="ccw">[# translateEmoji(item.msg_body.text_msg.text) #]</div></div>
+    </li>
+    [#}#]
+</script>
+
+<script type="text/javascript" src="/js/fastclick.js"></script>
+<script type="text/javascript">
+    if ('addEventListener' in document) {
+        document.addEventListener('DOMContentLoaded', function() {
+            FastClick.attach(document.body);
+        }, false);
+    }
+    var WeixinApi = {};
+    WeixinApi.openInWeixin = function(){return /MicroMessenger/i.test(navigator.userAgent);};
+    var Weibo = {};
+    Weibo.openInWeibo = function(){return /Weibo/i.test(navigator.userAgent);};
+    var client = "unknow";
+    if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+        client = "ios";
+    } else if (/(Android)/i.test(navigator.userAgent)) {
+        client = "android";
+    }
+    var flag = WeixinApi.openInWeixin() || Weibo.openInWeibo();
+    if(!flag || client!="ios")
+    {
+        mquery("#ft-dl-wrap").get(0).style.display = "block";
+    }
+    mquery("#ft-dl-wrap").bind("click", function () {
+        utils.clickDownloadHandle();
+    })
+    var cCursor = 0;
+    var cCount = 0;
+    var getcCount = 10;
+    var tid = 1;
+    var nid = 100524;
+    var gid = 10624;
+    var tmp = document.location.href.substr(document.location.href.indexOf("tid=") + 4);
+    if (tmp.indexOf("&") > 0) {
+        tid = tmp.substr(0, tmp.indexOf("&"));
+    } else {
+        tid = tmp;
+    }
+    if(tid==1)
+    {
+        mquery("#ed-w").get(0).className = "ed-w active-tab";
+        mquery("#news-type").get(0).innerHTML = "<a href='/news?tid=1'>Editors' > </a> ";
+    }else{
+        mquery("#mb-w").get(0).className = "mb-w active-tab";
+        mquery("#news-type").get(0).innerHTML = "<a href='/news?tid=0'> Mobbers' > </a>";
+    }
+
+    var tmpN = document.location.href.substr(document.location.href.indexOf("nid=") + 4);
+    if (tmpN.indexOf("&") > 0) {
+        nid = tmpN.substr(0, tmpN.indexOf("&"));
+    } else {
+        nid = tmpN;
+    }
+    var tmpG = document.location.href.substr(document.location.href.indexOf("gid=") + 4);
+    if (tmpG.indexOf("&") > 0) {
+        gid = tmpG.substr(0, tmpG.indexOf("&"));
+    } else {
+        gid = tmpG;
+    }
+    //mquery("#content").get(0).innerHTML = "<%= content %>";
+    var url = "/api/apiChange";
+    function timestamp2Sequence(ts) {
+        var sequence = ts - 1288834974657;
+        return (sequence << 22);
+    }
+    function getTimeTextFrom(age) {
+        var text = "2 hour ago";
+        if (age > 86400000) {
+            var d = parseInt(parseInt(age) / 86400000);
+            text = d + " day ago";
+        } else if (age > 3600000) {
+            var h = parseInt(parseInt(age) / 3600000);
+            text = h + " hour ago";
+        } else if (age > 60000) {
+            var m = parseInt(parseInt(age) / 60000);
+            text = m + " minute ago";
+        } else {
+            text = "1 minute ago";
+        }
+        return text;
+    }
+    var newsDtObj = {};
+    newsDtObj.getDetail = function (tid, nid, cb) {
+        var postD = {};
+        var items = {};
+        postD.url = "/call";
+        postD.data = {};
+        postD.data.CMD = 2;
+        postD.data.userId = 99999;
+        postD.data.service = "INSTMOB_NEWS";
+        postD.data.request = {};
+        postD.data.request.req_get_news_detail = {};
+        postD.data.request.req_get_news_detail.topic_id = parseInt(tid);
+        postD.data.request.req_get_news_detail.news_id = parseInt(nid);
+
+        console.log(url);
+        utils.ajax(url, function (data) {
+            mquery("#mob-loading").remove();
+            var items = JSON.parse(data);
+            cb(items);
+        }, "POST", JSON.stringify(postD), "application/json");
+    }
+
+    newsDtObj.getComment = function (tid, nid, gid, count, cb) {
+        var postM = {};
+        postM.url = "/call";
+        postM.data = {};
+        postM.data.CMD = 2;
+        postM.data.userId = 99999;
+        postM.data.service = "GROUP_MSG";
+        postM.data.request = {};
+        postM.data.request.req_get_msg = {};
+        postM.data.request.req_get_msg.target_id = parseInt(gid);
+        postM.data.request.req_get_msg.count = count;
+        postM.data.request.req_get_msg.is_reversed = true;
+        console.log(timestamp2Sequence((new Date()).valueOf()));
+        postM.data.request.req_get_msg.seq = -1;
+
+        utils.ajax(url, function (data) {
+            var items = JSON.parse(data);
+            cb(items);
+        }, "POST", JSON.stringify(postM), "application/json");
+    }
+
+    newsDtObj.getGroupMsgCount = function (gid, cb) {
+        var postM = {};
+        postM.url = "/call";
+        postM.data = {};
+        postM.data.CMD = 5;
+        postM.data.userId = 99999;
+        postM.data.service = "GROUP_MSG";
+        postM.data.request = {};
+        postM.data.request.req_get_group_msg_counter = {};
+        postM.data.request.req_get_group_msg_counter.group_ids = [parseInt(gid)];
+        utils.ajax(url, function (data) {
+            var items = JSON.parse(data);
+            cb(items);
+        }, "POST", JSON.stringify(postM), "application/json");
+    }
+
+
+    newsDtObj.getComment(tid, nid, gid, getcCount, function (items) {
+        console.log("comment")
+        console.log(items);
+        var tmpl = mquery('#tmpl_comments').html();
+        var itemsHtml = "";
+        if (items.resp_get_msg.msg_info && items.resp_get_msg.msg_info.length > 0) {
+            itemsHtml = utils.TemplateEngine(tmpl, items.resp_get_msg.msg_info);
+            var newCCount = items.resp_get_msg.msg_info.length;
+            cCursor+=newCCount;
+            cCount+=newCCount;
+            mquery("#d-c").get(0).innerHTML = cCount;
+            if(parseInt(cCount)>0)
+            {
+                mquery("#cm-percentage").get(0).style.opacity = 1;
+            }
+        }
+        mquery("#comment-list").get(0).innerHTML = mquery("#comment-list").get(0).innerHTML + itemsHtml;
+    })
+
+
+    newsDtObj.getDetail(tid, nid, function (items) {
+        console.log("detail")
+        console.log(items);
+        if (items.resp_get_news_detail.news_info.news_id) {
+            mquery("#nid").val(items.resp_get_news_detail.news_info.news_id);
+            mquery("#tid").val(items.resp_get_news_detail.news_info.topic_id);
+            mquery("title").get(0).innerHTML = "Instamob - " + items.resp_get_news_detail.news_info.title;
+            mquery("#title").get(0).innerHTML = items.resp_get_news_detail.news_info.title;
+            mquery("#time").get(0).innerHTML = getTimeTextFrom(items.resp_get_news_detail.news_info.age);
+            mquery("#content").get(0).innerHTML = items.resp_get_news_detail.news_info.content.replace(/<p>&nbsp;<\/p>/ig,"");
+            mquery("#image").get(0).src = items.resp_get_news_detail.news_info.images[0];
+            mquery("#nav-title").get(0).innerHTML = items.resp_get_news_detail.news_info.title;
+            mquery("#og-image").get(0).content = items.resp_get_news_detail.news_info.images[0];
+            mquery("#og-title").get(0).content = items.resp_get_news_detail.news_info.title;
+
+        }
+    })
+
+    newsDtObj.getGroupMsgCount(gid, function (items) {
+        console.log("getGroupMsgCount");
+        console.log(items);
+        var count = items.resp_get_group_msg_counter.msg_counter_info[0].count;
+        mquery("#a-c").get(0).innerHTML = count;
+        console.log(count);
+    });
+
+</script>
+</body>
+
+</html>
