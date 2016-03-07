@@ -62,7 +62,7 @@ var utils = (function () {
         utilsObj.genImageLocation = "/home/ubuntu/node-work/crawl/public/genimages/";
         utilsObj.genImageBGLocation = "/home/ubuntu/node-work/crawl/public/res/bg.jpg";
         utilsObj.mode = "dev";
-        utilsObj.selfUrl = "http://xc.128dev.mozat.com/";
+        utilsObj.selfUrl = "http://54.179.168.224:3000/";
         console.log("dev");
     } else {
         utilsObj.newsLocation = "/var/www/crawl.instamob.im/crawl-n/public/news/";
