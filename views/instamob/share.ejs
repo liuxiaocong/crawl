@@ -23,7 +23,7 @@
 </div>
 <input type="hidden" id="nid" name="nid"/>
 <input type="hidden" id="tid" name="tid"/>
-<div class="mob-loading" id="mob-loading"></div>
+<!--<div class="mob-loading" id="mob-loading"></div>-->
 <div class="menu">
     <div class="menu-inner">
         <div class="mi-img">
@@ -56,7 +56,7 @@
 </div>
 <div class="wrap">
     <div class="wrap-inner">
-        <div class="i-wrap"><img src="/news/<%= nid %>/thumbnail.jpg" class="image" id="image"/></div>
+        <div class="i-wrap"><img src="<%= localImage %>" class="image" id="image"/></div>
         <div class="t-wrap">
             <div class="title" id="title"><%= title %></div>
             <div class="time" id="time"><%= time %></div>
@@ -246,51 +246,51 @@
     }
 
 
-    newsDtObj.getComment(tid, nid, gid, getcCount, function (items) {
-        console.log("comment")
-        console.log(items);
-        var tmpl = mquery('#tmpl_comments').html();
-        var itemsHtml = "";
-        if (items.resp_get_msg.msg_info && items.resp_get_msg.msg_info.length > 0) {
-            itemsHtml = utils.TemplateEngine(tmpl, items.resp_get_msg.msg_info);
-            var newCCount = items.resp_get_msg.msg_info.length;
-            cCursor+=newCCount;
-            cCount+=newCCount;
-            mquery("#d-c").get(0).innerHTML = cCount;
-            if(parseInt(cCount)>0)
-            {
-                mquery("#cm-percentage").get(0).style.opacity = 1;
-            }
-        }
-        mquery("#comment-list").get(0).innerHTML = mquery("#comment-list").get(0).innerHTML + itemsHtml;
-    })
-
-
-    newsDtObj.getDetail(tid, nid, function (items) {
-        console.log("detail")
-        console.log(items);
-        if (items.resp_get_news_detail.news_info.news_id) {
-            mquery("#nid").val(items.resp_get_news_detail.news_info.news_id);
-            mquery("#tid").val(items.resp_get_news_detail.news_info.topic_id);
-            mquery("title").get(0).innerHTML = "Instamob - " + items.resp_get_news_detail.news_info.title;
-            mquery("#title").get(0).innerHTML = items.resp_get_news_detail.news_info.title;
-            mquery("#time").get(0).innerHTML = getTimeTextFrom(items.resp_get_news_detail.news_info.age);
-            mquery("#content").get(0).innerHTML = items.resp_get_news_detail.news_info.content.replace(/<p>&nbsp;<\/p>/ig,"");
-            mquery("#image").get(0).src = items.resp_get_news_detail.news_info.images[0];
-            mquery("#nav-title").get(0).innerHTML = items.resp_get_news_detail.news_info.title;
-            mquery("#og-image").get(0).content = items.resp_get_news_detail.news_info.images[0];
-            mquery("#og-title").get(0).content = items.resp_get_news_detail.news_info.title;
-
-        }
-    })
-
-    newsDtObj.getGroupMsgCount(gid, function (items) {
-        console.log("getGroupMsgCount");
-        console.log(items);
-        var count = items.resp_get_group_msg_counter.msg_counter_info[0].count;
-        mquery("#a-c").get(0).innerHTML = count;
-        console.log(count);
-    });
+//  newsDtObj.getComment(tid, nid, gid, getcCount, function (items) {
+//      console.log("comment")
+//      console.log(items);
+//      var tmpl = mquery('#tmpl_comments').html();
+//      var itemsHtml = "";
+//      if (items.resp_get_msg.msg_info && items.resp_get_msg.msg_info.length > 0) {
+//          itemsHtml = utils.TemplateEngine(tmpl, items.resp_get_msg.msg_info);
+//          var newCCount = items.resp_get_msg.msg_info.length;
+//          cCursor+=newCCount;
+//          cCount+=newCCount;
+//          mquery("#d-c").get(0).innerHTML = cCount;
+//          if(parseInt(cCount)>0)
+//          {
+//              mquery("#cm-percentage").get(0).style.opacity = 1;
+//          }
+//      }
+//      mquery("#comment-list").get(0).innerHTML = mquery("#comment-list").get(0).innerHTML + itemsHtml;
+//  })
+//
+//
+//  newsDtObj.getDetail(tid, nid, function (items) {
+//      console.log("detail")
+//      console.log(items);
+//      if (items.resp_get_news_detail.news_info.news_id) {
+//          mquery("#nid").val(items.resp_get_news_detail.news_info.news_id);
+//          mquery("#tid").val(items.resp_get_news_detail.news_info.topic_id);
+//          mquery("title").get(0).innerHTML = "Instamob - " + items.resp_get_news_detail.news_info.title;
+//          mquery("#title").get(0).innerHTML = items.resp_get_news_detail.news_info.title;
+//          mquery("#time").get(0).innerHTML = getTimeTextFrom(items.resp_get_news_detail.news_info.age);
+//          mquery("#content").get(0).innerHTML = items.resp_get_news_detail.news_info.content.replace(/<p>&nbsp;<\/p>/ig,"");
+//          mquery("#image").get(0).src = items.resp_get_news_detail.news_info.images[0];
+//          mquery("#nav-title").get(0).innerHTML = items.resp_get_news_detail.news_info.title;
+//          mquery("#og-image").get(0).content = items.resp_get_news_detail.news_info.images[0];
+//          mquery("#og-title").get(0).content = items.resp_get_news_detail.news_info.title;
+//
+//      }
+//  })
+//
+//  newsDtObj.getGroupMsgCount(gid, function (items) {
+//      console.log("getGroupMsgCount");
+//      console.log(items);
+//      var count = items.resp_get_group_msg_counter.msg_counter_info[0].count;
+//      mquery("#a-c").get(0).innerHTML = count;
+//      console.log(count);
+//  });
 
 </script>
 </body>

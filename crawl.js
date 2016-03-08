@@ -94,13 +94,19 @@ app.get('/share', function (req, res) {
         	image = docs[0].avatar;
         	time = utilsService.getTimeTextFrom(docs[0].date);	
         }
-        var content = 
+		var localImage;
+		if(image.toLocaleLowerCase().indexOf(".png")>0)
+		{
+			localImage = "/news/" + nid + "/thumbnail.png";
+		}else{
+			localImage = "/news/" + nid + "/thumbnail.jpg";
+		}
         console.log(title);
         console.log(image);
         utilsService.getNewsContent(nid,function(content)
         {
         	console.log(content);
-        	res.render('instamob/share',{"title":title,"image":image,"nid":nid,"content":content,"time":time});
+        	res.render('instamob/share',{"title":title,"image":image,"nid":nid,"content":content,"time":time,"localImage":localImage});
         })
         
     })
