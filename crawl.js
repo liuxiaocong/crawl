@@ -30,7 +30,10 @@ app.use(function (req, res, next) {
             server.close();
             var ret = {};
             ret.code = -1;
-            res.status(500).send(JSON.stringify(ret));
+            if(res!=null)
+            {
+            	res.status(500).send(JSON.stringify(ret));
+            }
         } catch (e) {
             console.log('error when exit', e.stack);
         }

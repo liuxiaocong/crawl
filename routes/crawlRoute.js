@@ -35,9 +35,9 @@ router.get('/crawlNews', function (req, res) {
     //end fake
     if (mutilpleRequest % 2 == 0) {
         console.log("getChannelE getStomp getAsiaOne getTrs:" + mutilpleRequest);
-        res.sourceAccount = 2;
+        res.sourceAccount = 3;
 //      crawlService.getChannelE(res, sourceObj);
-//      crawlService.getStomp(res, sourceObj);
+        crawlService.getStomp(res, sourceObj);
         crawlService.getAsiaOne(res, sourceObj);
 //      crawlService.getTrs(res, sourceObj);
 	    crawlService.getZhihu(res, sourceObj);

@@ -50,8 +50,7 @@
 </div>
 
 <div class="footer">
-    <p>Instamob @2015 All Right Reserved <br/><a href="https://mixpanel.com/f/partner"><img
-            src="//cdn.mxpnl.com/site_media/images/partner/badge_light.png" alt="Mobile Analytics"/></a>
+    <p>Instamob @2015 All Right Reserved 
     </p>
 </div>
 <script id="tmpl_news" type="text/x-simplet-template">
@@ -139,7 +138,7 @@
             var postD = {};
             var items = {};
             postD.url = "/call";
-            postD.index = start / count;
+            postD.index = Math.floor(start / count);
             postD.count = count;
             postD.lang = lang;
             url = "/api/getNewsList";
@@ -161,6 +160,7 @@
         var itemsHtml = "";
         if (item.data.length > 0) {
             newsStart = newsStart + item.data.length;
+            console.log("newsStart:" + newsStart);
             itemsHtml = utils.TemplateEngine(tmpl, item.data);
         }
         if (item.data.length < 10) {
@@ -192,6 +192,7 @@
     window.onscroll = function () {
         if (document.body.scrollHeight - (document.body.scrollTop + window.document.body.offsetHeight) < 20) {
             if (!newsEnd) {
+            	console.log("load newsStart" + newsStart);
                 newQuery.getNewsList(tid, newsStart, newsPerCount, "zh", function (item) {
                     console.log(item);
                     var tmpl = mquery('#tmpl_news').html();

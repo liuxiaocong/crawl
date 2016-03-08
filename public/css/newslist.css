@@ -79,7 +79,7 @@ html, body {
 .mi-menu div.sl-w {margin: 20px;width: 1px;background: #ab8200;display: inline-block;height: 20px;vertical-align: middle}
 .active-tab a{color: #fff !important;}
 /*end menu*/
-.wrap {padding: 0 5px 100px 5px}
+.wrap {padding: 0 5px 50px 5px}
 .nav {height: 40px;line-height: 40px;background: #fff;max-width: 1000px;margin: 10px auto;border: 1px solid #ccc;border-radius: 5px}
 .nav-start {width: 5px;height: 20px;margin: 10px;display: inline-block;background: #ffbd00;vertical-align: middle;}
 .news-wrap {max-width: 1020px;margin: 0 auto;text-align: center}
@@ -108,7 +108,7 @@ html, body {
 .news-time-wrap {margin: 0 10px;color: #999}
 .footer {text-align: center;height: 100px;padding: 1px;max-width: 1000px;margin: 0 auto}
 .footer-inner {border-top: 1px solid #ccc;margin: 0 10px;}
-.footer p {margin: 40px 0 60px 0;line-height: 20px;}
+.footer p {margin: 40px 0 150px 0;line-height: 20px;}
 
 @media screen and (max-width: 660px) {
     .news-item{width: 49.3%}
