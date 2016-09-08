@@ -27,7 +27,7 @@
     "multer":"*",
     "phantom":"*",
     "request":"*",
-    "request-promise":"*"
+    "request-promise":"*",
     "debug":"*"
   }
 }
