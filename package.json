@@ -28,5 +28,6 @@
     "phantom":"*",
     "request":"*",
     "request-promise":"*"
+    "debug":"*"
   }
 }

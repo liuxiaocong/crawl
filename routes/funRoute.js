@@ -30,7 +30,7 @@ router.get('/', function(req, res) {
 router.get('/gennews', function(req, res) {
     res.render('genfromurl',{"count":1,"type":1,"source":1});
 });
-router.get('/gennewshistory', function(req, res) {
+router.get('/history', function(req, res) {
     var query = req.query;
     var condition = {};
     if (query.source) {
